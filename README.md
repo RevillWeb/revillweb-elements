@@ -3,22 +3,30 @@ A series of website buttons, inputs and other controls written as web components
 
 ##TO DO
 <ul>
-<li>Buttons</li>
-<li>Inputs</li>
-<li>Controls</li>
+<li>Buttons
+  <ul>
+    <li>Success</li>
+    <li>Warning</li>
+    <li>Error</li>
+    <li>Primary</li>
+  </ul>
+</li>
+<li>
+  Inputs
+  <ul>
+    <li>Text</li>
+    <li>Number</li>
+    <li>Email</li>
+    <li>Password</li>
+  </ul>
+</li>
+<li>
+  Controls
+  <ul>
+    <li>Tag input</li>
+    <li>Date picker</li>
+    <li>Time picker</li>
+    <li>Date of Birth picker</li>
+  </ul>
+</li>
 </ul>
-* Buttons
-..* Success
-..* Warning
-..* Error
-..* Primary
-* Inputs
-..* Text
-..* Number
-..* Email
-..* Password
-* Controls
-..* Tag input
-..* Date picker
-..* Time picker
-..* Date of Birth picker
