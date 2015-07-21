@@ -15,34 +15,102 @@
             background: none;
             border: none;
             font-size: 16px;
+            cursor: pointer;
+        }
+        .rw-button .bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.25);
+            opacity: 0;
+            transition: all 0.3s ease-in;
+        }
+        .rw-button #content {
+            position: relative;
+            z-index: 2;
+        }
+        .rw-button:hover .bg {
+            opacity: 1;
+        }
+        .rw-button:active {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-name: pulse;
+            animation-name: pulse;
+        }
+        .rw-button .gleam {
+            display: none;
         }
 
         /* DEFAULT */
         .rw-button.default {
-            color: #666;
-            box-shadow: 1px 1px 0 rgba(204, 204, 204, 0.50);
+            color: #999;
+            background-color: #F1F1F1;
+            box-shadow: 1px 2px 0 rgba(204, 204, 204, 0.50);
         }
         .rw-button.default.border {
-            border: solid 2px #999;
+            border: solid 2px #bcbcbc;
             box-shadow: none;
         }
         /* SUCCESS */
         .rw-button.success {
             background-color: #56B68B;
             color: rgba(255, 255, 255, 0.90);
-            box-shadow: 1px 1px 0 #489975;
+            box-shadow: 1px 2px 0 #489975;
             text-shadow: 1px 1px 0 #4da37c;
         }
         .rw-button.success.border {
             border: solid 2px #4da37c;
             box-shadow: none;
         }
+        .rw-button.success .gleam {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.55);
+            position: absolute;
+            top: -2px;
+            left: 0;
+            transition: all 0.2s ease-in;
+            display: block;
+            opacity: 0;
+        }
+        .rw-button.success.border .gleam {
+            top: -4px;
+        }
+        .rw-button.success .gleam.second {
+            top: 100%;
+            left: 100%;
+        }
+        .rw-button.success:hover .gleam {
+            opacity: 1;
+            left: 100%;
+            box-shadow: 0 0 10px #FFF;
+        }
+        .rw-button.success:hover .gleam.second {
+            top: -2px;
+        }
+        .rw-button.success.border:hover .gleam.second {
+            top: -4px;
+        }
         /* PRIMARY */
         .rw-button.primary {
             background-color: #439fe0;
             color: rgba(255, 255, 255, 0.90);
-            box-shadow: 1px 1px 0 #3988c0;
+            box-shadow: 1px 2px 0 #3988c0;
             text-shadow: 1px 1px 0 #3d92cd;
+        }
+        .rw-button.primary .bg {
+            top: 100%;
+            /*background-color: #FFF;*/
+        }
+        .rw-button.primary:hover .bg {
+            top: 0;
         }
         .rw-button.primary.border {
             border: solid 2px #3d92cd;
@@ -50,21 +118,21 @@
         }
         /* WARNING */
         .rw-button.warning {
-            background-color: #ffd942;
+            background-color: #ffb454;
             color: #FFF;
-            box-shadow: 1px 1px 0 #dfc74c;
-            text-shadow: 1px 1px 0 #dfc74c;
+            box-shadow: 1px 2px 0 #e8a44c;
+            text-shadow: 1px 1px 0 #db9b48;
         }
         .rw-button.warning.border {
-            border: solid 2px #dfc74c;
+            border: solid 2px #e8a44c;
             box-shadow: none;
         }
         /* ERROR */
         .rw-button.danger {
             background-color: #ff5e56;
             color: rgba(255, 255, 255, 0.90);
-            box-shadow: 1px 1px 0 #eb574f;
-            text-shadow: 1px 1px 0 #eb574f;
+            box-shadow: 1px 2px 0 #eb574f;
+            text-shadow: 1px 1px 0 #dd524a;
         }
         .rw-button.danger.border {
             border: solid 2px #eb574f;
@@ -81,8 +149,49 @@
             padding: 5px 10px;
             font-size: 12px;
         }
+
+
+
+        @-webkit-keyframes pulse {
+            0% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+
+            50% {
+                -webkit-transform: scale3d(1.05, 1.05, 1.05);
+                transform: scale3d(1.05, 1.05, 1.05);
+            }
+
+            100% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+
+            50% {
+                -webkit-transform: scale3d(1.05, 1.05, 1.05);
+                transform: scale3d(1.05, 1.05, 1.05);
+            }
+
+            100% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
     </style>
-    <button><content></content></button>
+    <button>
+        <div id="content"><content class=".content"></content></div>
+        <div class="bg"></div>
+        <div class="gleam"></div>
+        <div class="gleam second"></div>
+    </button>
 </template>
 <script>
     (function() {
@@ -117,7 +226,7 @@
             if (sizes.indexOf(this.getAttribute('size')) > -1) {
                 classes.push(this.getAttribute('size'));
             }
-            if (this.getAttribute('border') != "false") {
+            if (this.getAttribute('border') == "true") {
                 classes.push("border");
             }
             this.$button.className = classes.join(" ");
