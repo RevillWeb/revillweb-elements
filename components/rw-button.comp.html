@@ -16,22 +16,71 @@
             border: none;
             font-size: 16px;
         }
-        .rw-button.default {
-            border: solid 2px #999;
-            color: #666;
-            box-shadow: 1px 1px 0 #CCC;
-            /*text-shadow: 1px 1px 0 #dcdcdc;*/
-        }
 
+        /* DEFAULT */
+        .rw-button.default {
+            color: #666;
+            box-shadow: 1px 1px 0 rgba(204, 204, 204, 0.50);
+        }
+        .rw-button.default.border {
+            border: solid 2px #999;
+            box-shadow: none;
+        }
+        /* SUCCESS */
         .rw-button.success {
             background-color: #56B68B;
+            color: rgba(255, 255, 255, 0.90);
+            box-shadow: 1px 1px 0 #489975;
+            text-shadow: 1px 1px 0 #4da37c;
         }
+        .rw-button.success.border {
+            border: solid 2px #4da37c;
+            box-shadow: none;
+        }
+        /* PRIMARY */
+        .rw-button.primary {
+            background-color: #439fe0;
+            color: rgba(255, 255, 255, 0.90);
+            box-shadow: 1px 1px 0 #3988c0;
+            text-shadow: 1px 1px 0 #3d92cd;
+        }
+        .rw-button.primary.border {
+            border: solid 2px #3d92cd;
+            box-shadow: none;
+        }
+        /* WARNING */
+        .rw-button.warning {
+            background-color: #ffd942;
+            color: #FFF;
+            box-shadow: 1px 1px 0 #dfc74c;
+            text-shadow: 1px 1px 0 #dfc74c;
+        }
+        .rw-button.warning.border {
+            border: solid 2px #dfc74c;
+            box-shadow: none;
+        }
+        /* ERROR */
+        .rw-button.danger {
+            background-color: #ff5e56;
+            color: rgba(255, 255, 255, 0.90);
+            box-shadow: 1px 1px 0 #eb574f;
+            text-shadow: 1px 1px 0 #eb574f;
+        }
+        .rw-button.danger.border {
+            border: solid 2px #eb574f;
+            box-shadow: none;
+        }
+
+
 
         .rw-button.large {
             padding: 15px 35px;
             font-size: 20px;
         }
-
+        .rw-button.small {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
     </style>
     <button><content></content></button>
 </template>
@@ -39,6 +88,7 @@
     (function() {
 
         var themes = ["primary", "success", "warning", "danger"];
+        var sizes = ["small", "large"];
 
         //Get the contents of the template
         //Make sure the template can be retrieved as an import and from the main document also
@@ -64,8 +114,11 @@
             } else {
                 classes.push("default");
             }
-            if (this.getAttribute('size') == "large") {
-                classes.push("large");
+            if (sizes.indexOf(this.getAttribute('size')) > -1) {
+                classes.push(this.getAttribute('size'));
+            }
+            if (this.getAttribute('border') != "false") {
+                classes.push("border");
             }
             this.$button.className = classes.join(" ");
         };
@@ -77,12 +130,7 @@
         };
         //When the options are updated, re-populate the select
         proto.attributeChangedCallback = function(attrName, oldVal, newVal) {
-            if (/^(type)$/.test(attrName)) {
-                this.applyClasses();
-            }
-            if (/^(size)$/.test(attrName)) {
-                this.applyClasses();
-            }
+            this.applyClasses();
         };
         //Register the element with the document
         document.registerElement('rw-button', {prototype: proto});
