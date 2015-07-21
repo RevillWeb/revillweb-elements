@@ -7,7 +7,7 @@ A series of website buttons, inputs and other controls written as web components
   <ul>
     <li>Success</li>
     <li>Warning</li>
-    <li>Error</li>
+    <li>Danger</li>
     <li>Primary</li>
   </ul>
 </li>
