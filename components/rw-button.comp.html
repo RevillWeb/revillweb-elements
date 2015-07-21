@@ -1,0 +1,90 @@
+<template>
+    <style>
+        .rw-button {
+            position: relative;
+            border-radius: 5px;
+            transition: all 0.3s ease-in;
+            outline: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
+        .rw-button.default {
+            border: solid 2px #999;
+            color: #666;
+            box-shadow: 1px 1px 0 #CCC;
+            /*text-shadow: 1px 1px 0 #dcdcdc;*/
+        }
+
+        .rw-button.success {
+            background-color: #56B68B;
+        }
+
+        .rw-button.large {
+            padding: 15px 35px;
+            font-size: 20px;
+        }
+
+    </style>
+    <button><content></content></button>
+</template>
+<script>
+    (function() {
+
+        var themes = ["primary", "success", "warning", "danger"];
+
+        //Get the contents of the template
+        //Make sure the template can be retrieved as an import and from the main document also
+        var template = document.currentScript.ownerDocument.querySelector('template');
+        //Create a prototype for this component
+        var proto = Object.create(HTMLElement.prototype);
+
+        //Register a createdCallback
+        proto.createdCallback = function() {
+            var clone = document.importNode(template.content, true);
+            this.createShadowRoot().appendChild(clone);
+
+            //Setup elements of interest
+            this.$button = this.shadowRoot.querySelector('button');
+
+            this.applyClasses();
+        };
+
+        proto.applyClasses = function() {
+            var classes = ["rw-button"];
+            if (themes.indexOf(this.getAttribute('type')) > -1) {
+                classes.push(this.getAttribute('type'));
+            } else {
+                classes.push("default");
+            }
+            if (this.getAttribute('size') == "large") {
+                classes.push("large");
+            }
+            this.$button.className = classes.join(" ");
+        };
+
+
+        //When the element is attached to the DOM populate the select
+        proto.attachedCallback = function() {
+
+        };
+        //When the options are updated, re-populate the select
+        proto.attributeChangedCallback = function(attrName, oldVal, newVal) {
+            if (/^(type)$/.test(attrName)) {
+                this.applyClasses();
+            }
+            if (/^(size)$/.test(attrName)) {
+                this.applyClasses();
+            }
+        };
+        //Register the element with the document
+        document.registerElement('rw-button', {prototype: proto});
+    }());
+</script>
