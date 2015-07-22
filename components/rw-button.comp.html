@@ -11,7 +11,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            padding: 15px 30px;
+            padding: 10px 20px;
             background: none;
             border: none;
             font-size: 16px;
@@ -27,6 +27,7 @@
             background-color: rgba(255, 255, 255, 0.25);
             opacity: 0;
             transition: all 0.3s ease-in;
+            border-radius: 5px;
         }
         .rw-button #content {
             position: relative;
@@ -34,20 +35,36 @@
             opacity: 1;
             transition: all 0.3s ease-in;
         }
+        .rw-button .explanation {
+            position: absolute;
+            font-size: 39px;
+            right: 5px;
+            top: -2px;
+            opacity: 0;
+            transition: all 0.3s ease-in;
+            z-index: 2;
+        }
+        .rw-button.large .explanation {
+            font-size: 52px;
+        }
+        .rw-button.small .explanation {
+            font-size: 22px;
+            right: 2px;
+            top: 1px;
+        }
         .rw-button:hover .bg {
             opacity: 1;
         }
         .loader {
             position: absolute;
             top: 15%;
-            left: 40%;
+            left: 35%;
             opacity: 0;
-            width: 15%;
+            width: 25%;
             height: 55%;
             border: 4px solid #fff;
             animation: loader 2s infinite ease;
         }
-
         .loader-inner {
             vertical-align: top;
             display: inline-block;
@@ -110,6 +127,22 @@
         .rw-button .gleam {
             display: none;
         }
+        .rw-button.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .rw-button.no-animations {
+            animation-name: none;
+        }
+        .rw-button.no-animations:hover .bg {
+            opacity: 0;
+        }
+        .rw-button.loading {
+
+        }
+        .rw-button.loading #content {
+            opacity: 0;
+        }
 
         /* DEFAULT */
         .rw-button.default {
@@ -120,6 +153,14 @@
         .rw-button.default.border {
             border: solid 2px #bcbcbc;
             box-shadow: none;
+        }
+        .rw-button.default.loading .loader {
+            display: block;
+            border-color: #d9d9d9;
+            opacity: 1;
+        }
+        .rw-button.default.loading .loader .loader-inner {
+            background-color: #d9d9d9;
         }
         /* SUCCESS */
         .rw-button.success {
@@ -151,6 +192,14 @@
             top: 100%;
             left: 100%;
         }
+        .rw-button.success.loading .loader {
+            display: block;
+            border-color: #4da37c;
+            opacity: 1;
+        }
+        .rw-button.success.loading .loader .loader-inner {
+            background-color: #4da37c;
+        }
         .rw-button.success:hover .gleam {
             opacity: 1;
             left: 100%;
@@ -162,15 +211,16 @@
         .rw-button.success.border:hover .gleam.second {
             top: -4px;
         }
+
+        .rw-button.no-animations.success:hover .gleam {
+            opacity: 0;
+        }
         /* PRIMARY */
         .rw-button.primary {
             background-color: #439fe0;
             color: rgba(255, 255, 255, 0.90);
             box-shadow: 1px 2px 0 #3988c0;
             text-shadow: 1px 1px 0 #3d92cd;
-        }
-        .rw-button.primary.loading #content {
-            opacity: 0;
         }
         .rw-button.primary.loading .loader {
             display: block;
@@ -181,11 +231,16 @@
             background-color: #3d92cd;
         }
         .rw-button.primary .bg {
-            top: 100%;
-            /*background-color: #FFF;*/
+            top: 50%;
+            bottom: 50%;
+            left: 50%;
+            right: 50%;
         }
         .rw-button.primary:hover .bg {
             top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
         .rw-button.primary.border {
             border: solid 2px #3d92cd;
@@ -202,7 +257,21 @@
             border: solid 2px #e8a44c;
             box-shadow: none;
         }
-        /* ERROR */
+        .rw-button.warning.loading .loader {
+            display: block;
+            border-color: #db9b48;
+            opacity: 1;
+        }
+        .rw-button.warning.loading .loader .loader-inner {
+            background-color: #db9b48;
+        }
+        .rw-button.warning .bg {
+            bottom: 100%;
+        }
+        .rw-button.warning:hover .bg {
+            bottom: 0;
+        }
+        /* DANGER */
         .rw-button.danger {
             background-color: #ff5e56;
             color: rgba(255, 255, 255, 0.90);
@@ -213,8 +282,23 @@
             border: solid 2px #eb574f;
             box-shadow: none;
         }
-
-
+        .rw-button.danger.loading .loader {
+            display: block;
+            border-color: #dd524a;
+            opacity: 1;
+        }
+        .rw-button.danger.loading .loader .loader-inner {
+            background-color: #dd524a;
+        }
+        .rw-button.danger .bg {
+            background-color: #c63527;
+        }
+        .rw-button.danger:hover .explanation {
+            opacity: 1;
+        }
+        .rw-button.danger.no-animations:hover .explanation {
+            opacity: 0;
+        }
 
         .rw-button.large {
             padding: 15px 35px;
@@ -224,8 +308,6 @@
             padding: 5px 10px;
             font-size: 12px;
         }
-
-
 
         @-webkit-keyframes pulse {
             0% {
@@ -266,6 +348,7 @@
         <div class="bg"></div>
         <div class="gleam"></div>
         <div class="gleam second"></div>
+        <div class="explanation">!</div>
         <span class="loader"><span class="loader-inner"></span></span>
     </button>
 </template>
@@ -293,6 +376,7 @@
         };
 
         proto.applyClasses = function() {
+            this.$button.className = "";
             var classes = ["rw-button"];
             if (themes.indexOf(this.getAttribute('type')) > -1) {
                 classes.push(this.getAttribute('type'));
@@ -307,6 +391,13 @@
             }
             if (this.getAttribute('loading') == "true") {
                 classes.push("loading");
+                classes.push("no-animations");
+            }
+            if (this.getAttribute('disabled') == "true") {
+                classes.push("disabled");
+                if (classes["no-animations"] == undefined) {
+                    classes.push("no-animations");
+                }
             }
             this.$button.className = classes.join(" ");
         };

@@ -5,3 +5,10 @@ html, body {
 rw-button::shadow button {
     font-family: 'Roboto Condensed', sans-serif;
 }
+h1, h2 {
+    margin-bottom: 5px;
+}
+.description {
+    color: #999;
+    margin: 0;
+}
