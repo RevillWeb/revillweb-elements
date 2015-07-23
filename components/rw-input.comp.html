@@ -1,0 +1,50 @@
+<link rel="import" href="inputs/rw-text-input.comp.html">
+
+<template>
+    <style>
+        .rw-input {
+
+        }
+    </style>
+    <div class="rw-input-container">
+        <label></label>
+        <div class="rw-input-item"></div>
+    </div>
+</template>
+
+
+<script>
+    (function() {
+
+        var types = ["text", "email", "select"];
+
+        var _proto = Object.create(HTMLElement.prototype);
+        var _self = document.currentScript.ownerDocument;
+        var _thisDom = null;
+
+        //Register a createdCallback
+        _proto.createdCallback = function() {
+            var template = _self.querySelector('template');
+            var clone = document.importNode(template.content, true);
+            this.createShadowRoot().appendChild(clone);
+            _thisDom = this.shadowRoot;
+        };
+        //When the options are updated, re-populate the select
+        _proto.attributeChangedCallback = function(attrName, oldVal, newVal) {
+
+        };
+        _proto.render = function() {
+            var type = this.getAttribute("type");
+            if (types.indexOf(type) > -1) {
+
+
+                var inputTarget = this.shadowRoot.querySelector('.rw-input-item');
+
+                var input = document.createElement(type);
+
+            }
+        };
+        //Register the element with the document
+        document.registerElement('rw-input', {prototype: _proto});
+    }());
+</script>
