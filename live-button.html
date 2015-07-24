@@ -5,34 +5,48 @@
     <title>revillweb-elements</title>
     <link rel="stylesheet" href="style.css">
     <link rel="import" href="components/rw-button.comp.html">
+    <style type="text/css">
+        .container {
+            width: 500px;
+            margin: auto;
+        }
+        .container .description {
+            margin-bottom: 20px;
+        }
+        .frame {
+            text-align: center;
+            padding: 100px;
+        }
+    </style>
 </head>
 <body>
-<h1>Live Demo</h1>
-<p class="description">Alter the options to update the button configuration live.</p>
+<div class="container">
+    <h1>Live Demo</h1>
+    <p class="description">Alter the options to update the button configuration live.</p>
 
-<label for="type">Type:</label>
-<select name="type" id="type" onchange="changeSelect('type')">
-    <option value="">Default</option>
-    <option value="primary">Primary</option>
-    <option value="success">Success</option>
-    <option value="warning">Warning</option>
-    <option value="danger">Danger</option>
-</select>
-<label for="size">Size:</label>
-<select name="size" id="size" onchange="changeSelect('size')">
-    <option value="">Standard</option>
-    <option value="small">Small</option>
-    <option value="large">Large</option>
-</select>
+    <label for="type">Type:</label>
+    <select name="type" id="type" onchange="changeSelect('type')">
+        <option value="">Default</option>
+        <option value="primary">Primary</option>
+        <option value="success">Success</option>
+        <option value="warning">Warning</option>
+        <option value="danger">Danger</option>
+    </select>
+    <label for="size">Size:</label>
+    <select name="size" id="size" onchange="changeSelect('size')">
+        <option value="">Standard</option>
+        <option value="small">Small</option>
+        <option value="large">Large</option>
+    </select>
 
-<label for="border">Bordered:</label><input type="checkbox" name="bordered" id="border" onchange="toggleCheckbox('border')"/>
-<label for="disabled">Disabled:</label><input type="checkbox" name="disabled" id="disabled" onchange="toggleCheckbox('disabled')"/>
-<label for="loading">Loading:</label><input type="checkbox" name="loading" id="loading" onchange="toggleCheckbox('loading')"/>
+    <label for="border">Bordered:</label><input type="checkbox" name="bordered" id="border" onchange="toggleCheckbox('border')"/>
+    <label for="disabled">Disabled:</label><input type="checkbox" name="disabled" id="disabled" onchange="toggleCheckbox('disabled')"/>
+    <label for="loading">Loading:</label><input type="checkbox" name="loading" id="loading" onchange="toggleCheckbox('loading')"/>
 
-<div class="frame">
-    <rw-button id="live-button">Default</rw-button>
+    <div class="frame">
+        <rw-button id="live-button">Default</rw-button>
+    </div>
 </div>
-
 
 <script>
     var $button = document.getElementById("live-button");
